@@ -1,0 +1,36 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %} {% endblock %}</title>
+        {% block links %}
+            
+        {% endblock links %}     
+    </head>
+    <body>
+        <header>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'chat_groups' %}">All groups</a>
+                <a href="{% url 'personal_chats' %}">Personal_chats</a>
+                <p>{{ request.user.username }}</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'registration' %}">Registration</a>
+                <a href="{% url 'authorization' %}">Login</a>
+            {% endif %}
+        </header>
+        <main>
+            {% block content %}
+                
+            {% endblock content %}
+        </main>
+        
+        {% block scripts %}
+            
+        {% endblock scripts %}
+            
+    </body>
+</html>

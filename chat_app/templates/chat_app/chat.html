@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- Підключаємо блок заголовку -->
+{% block title %}
+    Chat
+{% endblock title %}
+<!-- Підключаємо блок для додаткових стилів -->
+{% block links %}
+    <link rel="stylesheet" href="">
+{% endblock links %}
+<!-- Основний контент сторінки -->
+{% block content %}
+    <h1>Група "{{ chat_group.name }}"</h1>
+    <!-- Сховане поле для збереження ID групи для доступу у JS -->
+    <input type="hidden" id="groupPk" value="{{ chat_group.pk }}">
+    <!-- Форма для надсилання повідомлення -->
+    <form action="" id= 'message'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>SEND</button>
+    </form>
+    <!-- Для відображення всіх сповіщень від одного користувача, який їх і відправляв -->
+    <div id= 'messages'>
+        {% for message in message_history %}
+            <div>
+                <p><b>{{ message.author }}: </b>{{ message.content }} (<span class="iso-date-time">{{ message.date_time.isoformat }}</span>)</p>
+                <i>Переглядів: {{ message.view_by_users.all|length }}</i>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endblock content %}
+
+<!-- Підлючаємо JS-файл для чату -->
+{% block scripts %}
+    <script src="{% static 'chat_app/js/chat.js' %}"></script>
+{% endblock scripts %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+    <h1>Контакти:</h1>
+
+    {% for chat in persons %}
+        <div>
+            <h4>{{ chat.username }}</h4>
+            <a href="{% url 'to_personal_chat' user.pk chat.pk %}">Чат</a>
+        </div>
+    {% endfor %}
+{% endblock %}
+            <!-- <a href="{% url 'to_personal_chat' user.pk chat.pk %}">Чат</a> -->

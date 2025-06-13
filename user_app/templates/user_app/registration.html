@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load customtags %}
+
+{% block title %}
+    Registration
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block content %}
+    <div class="registration">
+        <h1>Form Registration</h1>
+        {% render_custom_form %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src=""></script>
+{% endblock %}

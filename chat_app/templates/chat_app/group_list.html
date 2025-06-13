@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Усі групи
+{% endblock title %}
+
+{% block content %}
+    <h1>Усі групи</h1>
+    {% for group in group_list %}
+        <h2>{{ group.name }}</h2>
+        <!--формуємо динамічне посилання для конкретноі групи-->
+        <a href="{% url 'chat' group.pk %}">Приєднатися</a>
+    {% endfor %} 
+
+{% endblock content %}
+

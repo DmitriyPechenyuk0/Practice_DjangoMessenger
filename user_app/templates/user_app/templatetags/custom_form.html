@@ -1,0 +1,38 @@
+<!--  -->
+{% if form.non_field_errors %}
+    <div class="form-errors">
+        <ul>
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+<!--  -->
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-field">
+            <!--  -->
+            <label for="{{ field.id_for_label }}">
+                <p>{{ field.label }}</p>
+            </label>
+            <!--  -->
+            <p>{{ field }}</p>
+            <!--  -->
+            {% if field.errors %}
+                <ul class="field-errors">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <!--  -->
+    {% if form_name == 'register' %}
+        <button type="submit" >Зареєструйтесь</button>
+    {% elif form_name == 'auth' %}
+        <button type="submit" >Увійти</button>
+    {% endif %}
+</form>
