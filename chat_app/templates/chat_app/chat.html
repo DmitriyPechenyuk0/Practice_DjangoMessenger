@@ -23,7 +23,9 @@
     <div id= 'messages'>
         {% for message in message_history %}
             <div>
-                <p><b>{{ message.author }}: </b>{{ message.content }} (<span class="iso-date-time">{{ message.date_time.isoformat }}</span>)</p>
+                
+                <p>{{ message.author.where_active }}</p>
+                <p><b>{{ message.author }}{% if message.author.where_active == True %}(Онлайн){% else %}(Оффлайн){% endif %}: </b>{{ message.content }} (<span class="iso-date-time">{{ message.date_time.isoformat }}</span>)</p>
                 <i>Переглядів: {{ message.view_by_users.all|length }}</i>
             </div>
         {% endfor %}
