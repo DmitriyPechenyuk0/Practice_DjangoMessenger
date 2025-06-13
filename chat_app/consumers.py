@@ -13,6 +13,19 @@ from asgiref.sync import sync_to_async
 @sync_to_async
 def get_views_count(message):
     return message.view_by_users.count()
+
+@database_sync_to_async
+def active_user(self):
+    user = self.scope['user']
+    user.where_active = True
+    user.save()
+
+@database_sync_to_async
+def inactive_user(self):
+    user = self.scope['user']
+    user.where_active = False
+    user.save()
+
 class ChatConsumer(AsyncWebsocketConsumer):
     '''
     Клас для обробки Web-Socket запитів для роботи чату
@@ -32,7 +45,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
         # Приймаємо WebSocket з'єднання
+
         await self.accept()
+
+        await active_user(self)
+        
+    async def disconnect(self, code):
+        
+        await inactive_user(self)
+
+        await self.channel_layer.group_discard(
+            #назва групи, до якої додається користувач
+            self.room_group_name,
+            # назва каналу поточного websocket з'єднаня
+            self.channel_name
+        )
 
     async def receive(self, text_data):
         '''
