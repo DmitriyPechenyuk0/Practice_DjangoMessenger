@@ -17,7 +17,7 @@ webSocket.onmessage = function(event){
         // Відображаємо повідомлення на сторінці
         messages.insertAdjacentHTML(
             'beforeend',
-            `<div><p><b>${data.username}: </b>${data.message} (${dateTime})</p><i>Переглядів: ${data.views}</i></div>`
+            `<div><p><b>${data.username}(Онлайн): </b>${data.message} (${dateTime})</p><i>Переглядів: ${data.views}</i></div>`
         )
     }
 }
